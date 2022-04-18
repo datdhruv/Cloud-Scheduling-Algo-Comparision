@@ -28,9 +28,11 @@ dependency-reduced-pom.xml
 Teste.java
 Test.java
 .DS_Store
-*.jar
+#*.jar
 *.~lock*
 ~$*
 
 deploy.sh
 checkstyle.sh
+
+out/*
