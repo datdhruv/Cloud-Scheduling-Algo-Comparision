@@ -45,7 +45,6 @@ public class PSO {
     }
 
     public void printBestFitness() {
-        System.out.println("\nBest fitness value: " + swarm.getBestFitness() +
-                "\nBest makespan: " + ff.calcMakespan(swarm.getBestParticle().getBestPosition()));
+        System.out.println("makespan: " + ff.calcMakespan(swarm.getBestParticle().getBestPosition()));
     }
 }

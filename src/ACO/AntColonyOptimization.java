@@ -1,7 +1,5 @@
 package ACO;
 
-import java.util.*;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,19 +26,7 @@ import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-
-import javax.swing.*;
-import javax.swing.border.LineBorder;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import javax.swing.border.TitledBorder;
-import java.awt.event.*;
-
-public class MyAllocationTest {
+public class AntColonyOptimization {
     private static List<Cloudlet> cloudletList;
     private static int cloudletNum;
     private static List<Vm> vmList = new ArrayList<Vm>();
@@ -48,14 +34,14 @@ public class MyAllocationTest {
     static String st;
     static double value1 = 0;
 
-    MyAllocationTest() {
+    AntColonyOptimization() {
 
     }
 
 
     public static void main(String args[]) {
 
-        new MyAllocationTest();
+        new AntColonyOptimization();
 
         Log.printLine("Starting ACO Simulaion...");
         int num_user = 16;
@@ -70,7 +56,7 @@ public class MyAllocationTest {
         @SuppressWarnings("unused")
         Datacenter datacenter0 = createDatacenter("Datacenter_0");
 
-        LinkACO broker = createBroker();
+        ACODatacenterBroker broker = createBroker();
         int brokerId = broker.getId();
 
         long size = 10000;
@@ -186,10 +172,10 @@ public class MyAllocationTest {
         return datacenter;
     }
 
-    private static LinkACO createBroker() {
-        LinkACO broker = null;
+    private static ACODatacenterBroker createBroker() {
+        ACODatacenterBroker broker = null;
         try {
-            broker = new LinkACO("Broker");
+            broker = new ACODatacenterBroker("Broker");
         } catch (Exception e) {
             e.printStackTrace();
         }

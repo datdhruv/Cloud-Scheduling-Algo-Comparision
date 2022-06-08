@@ -28,7 +28,7 @@ public class MaxMin_Scheduler {
 }
 
 
-class test{
+class MaxMin {
 
     /*Global variables*/
     private static int num_vm=10,num_cloudlets=20;
@@ -570,7 +570,7 @@ class test{
                 maxFinishTime=currentFinishTime;
         }
         double throughput=cloudletNum/maxFinishTime;
-        System.out.printf("The throughput is %.6f\n",throughput);
+        //System.out.printf("The throughput is %.6f\n",throughput);
         return throughput;
     }
 
@@ -593,7 +593,7 @@ class test{
             TotalWaitTime=TotalWaitTime+indiWaitTime;
         }
         double avgWaitTime=TotalWaitTime/size;
-        System.out.printf("The avg Waiting time is is %.6f\n",avgWaitTime);
+        //System.out.printf("The avg Waiting time is is %.6f\n",avgWaitTime);
         return avgWaitTime;
 
     }
@@ -608,7 +608,7 @@ class test{
             TotalResponseTime=TotalResponseTime+indiResponseTime;
         }
         double avgResTime=TotalResponseTime/size;
-        System.out.printf("The avg response time is is %.6f\n",avgResTime);
+        //System.out.printf("The avg response time is is %.6f\n",avgResTime);
         return avgResTime;
 
     }

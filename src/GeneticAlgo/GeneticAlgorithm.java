@@ -17,13 +17,12 @@ import org.cloudbus.cloudsim.UtilizationModel;
 import org.cloudbus.cloudsim.UtilizationModelFull;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.core.CloudSim;
+import utils.Constants;
+import utils.GenerateMatrices;
 
 /**
  * Contains main method with the body for starting the project. 
  * Also contains utility functions for creating and printing objects.
- * 
- * @author Yuvraj Joshi
- *
  */
 public class GeneticAlgorithm {
 	
@@ -32,6 +31,9 @@ public class GeneticAlgorithm {
 
 	/** The list of VMs */
 	private static List<Vm> vmlist;
+
+	private static double[][] commMatrix;
+	private static double[][] execMatrix;
 	
 	
 	/**
@@ -47,9 +49,9 @@ public class GeneticAlgorithm {
 		// VM Parameters
 		long size = 10000; 		// image size (MB)
 		int ram = 512; 			// vm memory (MB)
-		int mips = 500;			// Million Instructions Per Sec
-		long bw = 10;			// bandwidth
-		int pesNumber = 4;		// number of cpus
+		int mips = 250;			// Million Instructions Per Sec
+		long bw = 1000;			// bandwidth
+		int pesNumber = 1;		// number of cpus
 		String vmm = "Xen"; 	// VMM name
 		Random rOb = new Random();
 		
@@ -91,7 +93,8 @@ public class GeneticAlgorithm {
 			int x = (int) (Math.random() * ((1000 - 1) + 1)) + 1;
 			cloudlet[i] = new Cloudlet(i, (length + x), pesNumber, fileSize,
 								outputSize, utilizationModel, utilizationModel, utilizationModel);
-			
+
+			//long length = (long) (1e3 * (commMatrix[i][dcId] + execMatrix[i][dcId]));
 			// Setting the owner of these Cloudlets
 			cloudlet[i].setUserId(userId);
 			list.add(cloudlet[i]);
@@ -106,6 +109,9 @@ public class GeneticAlgorithm {
 	 */
 	public static void main(String[] args) {
 		Log.printLine("Starting Genetic Algorithm...");
+		new GenerateMatrices();
+		execMatrix = GenerateMatrices.getExecMatrix();
+		commMatrix = GenerateMatrices.getCommMatrix();
 
 		try {
 			
@@ -302,6 +308,20 @@ public class GeneticAlgorithm {
 						+ dft.format(cloudlet.getFinishTime()));
 			}
 		}
+		double makespan = calcMakespan(list);
+		Log.printLine("Makespan using GA: " + makespan);
+	}
 
+	private static double calcMakespan(List<Cloudlet> list) {
+		double makespan = 0;
+		double[] dcWorkingTime = new double[Constants.NO_OF_DATA_CENTERS];
+
+		for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
+			int dcId = list.get(i).getVmId() % Constants.NO_OF_DATA_CENTERS;
+			if (dcWorkingTime[dcId] != 0) --dcWorkingTime[dcId];
+			dcWorkingTime[dcId] += execMatrix[i][dcId] + commMatrix[i][dcId];
+			makespan = Math.max(makespan, dcWorkingTime[dcId]);
+		}
+		return makespan;
 	}
 }

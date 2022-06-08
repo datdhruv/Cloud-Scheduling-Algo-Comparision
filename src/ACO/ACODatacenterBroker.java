@@ -23,7 +23,7 @@ import org.cloudbus.cloudsim.lists.VmList;
 
 
 
-public class LinkACO extends SimEntity {
+public class ACODatacenterBroker extends SimEntity {
 
 	/** The vm list. */
 	protected List<? extends Vm> vmList;
@@ -64,7 +64,7 @@ public class LinkACO extends SimEntity {
 	/** The datacenter characteristics list. */
 	protected Map<Integer, DatacenterCharacteristics> datacenterCharacteristicsList;
 
-	public LinkACO(String name) throws Exception {
+	public ACODatacenterBroker(String name) throws Exception {
 		super(name);
 
 		setVmList(new ArrayList<Vm>());
