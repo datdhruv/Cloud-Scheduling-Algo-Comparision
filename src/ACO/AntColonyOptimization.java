@@ -217,8 +217,8 @@ public class AntColonyOptimization {
 
         }
 
-        Log.printLine("================ Execution Result Ends here ==================");
-        System.out.println("This (ACO) schedule plan takes " + value1 / 10 + " ms  to finish execution.");
+        Log.printLine("End of execution");
+        System.out.println("Makespan: " + value1);
 
         return arr;
     }

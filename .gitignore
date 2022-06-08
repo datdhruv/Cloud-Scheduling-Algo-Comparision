@@ -36,3 +36,6 @@ deploy.sh
 checkstyle.sh
 
 out/*
+
+CommunicationTimeMatrix.txt
+ExecutionTimeMatrix.txt
